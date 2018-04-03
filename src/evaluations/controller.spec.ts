@@ -45,7 +45,7 @@ describe('EvaluationController', () => {
     .put('/evaluations/3')
     .set('Accept', 'application/json')
     .send(tar)
-    .expect(200)
+    .expect(201)
   })
 
 })
