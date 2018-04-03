@@ -2,7 +2,7 @@ import { JsonController, Post, Param, Get, Body, HttpCode } from 'routing-contro
 import Teacher from './entity';
 
 @JsonController()
-export default class UserController {
+export default class TeacherController {
 
   @Post('/teachers')
     @HttpCode(201)
@@ -12,18 +12,18 @@ export default class UserController {
       const {password, ...rest} = teacher
       const entity = Teacher.create(rest)
       await entity.setPassword(password)
-      await entity.save()
+      return entity.save()
     }
 
-  @Get('/users/:id([0-9]+)')
-  getUser(
+  @Get('/teachers/:id([0-9]+)')
+  getTeacher(
     @Param('id') id: number
   ) {
     return Teacher.findOneById(id)
   }
 
-  @Get('/users')
-  allUsers() {
+  @Get('/teachers')
+  allTeachers() {
     return Teacher.find()
   }
 }
