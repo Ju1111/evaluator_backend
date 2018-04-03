@@ -30,6 +30,7 @@ export default class EvaluationController {
   }
 
   @Put('/evaluations/:id')
+  @HttpCode(201)
   async updateEvaluation(
     @Param('id') evaluationId:number,
     @Body() update: Partial<Evaluation>
