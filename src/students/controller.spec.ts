@@ -17,7 +17,7 @@ describe('StudentController', () => {
 
   test('/students/:id([0-9]+)', async() => {
     await request(await app.callback())
-    .get('/students/2')
+    .get('/students/1')
     .set('Accept', 'application/json')
     .expect(200)
   })
@@ -44,7 +44,7 @@ describe('StudentController', () => {
     }
 
     const res = await request(await app.callback())
-    .put('/students/1')
+    .put('/students/4')
     .set('Accept', 'application/json')
     .send(tar)
     .expect(201)

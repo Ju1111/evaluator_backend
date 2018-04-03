@@ -6,6 +6,7 @@ import EvaluationController from './evaluations/controller'
 import StudentController from './students/controller'
 import { Action, BadRequestError } from 'routing-controllers'
 import { verify } from './jwt'
+import Teacher from './teachers/entity'
 
 export const app = createKoaServer({
   cors: true,
@@ -30,4 +31,16 @@ export const app = createKoaServer({
 
     return false
   },
+  currentUserChecker: async (action: Action) => {
+    const header: string = action.request.headers.authorization
+    if (header && header.startsWith('Bearer ')) {
+      const [ , token ] = header.split(' ')
+
+      if (token) {
+        const { id } = verify(token)
+        return Teacher.findOneById(id)
+      }
+    }
+    return undefined
+  }
 })
