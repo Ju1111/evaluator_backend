@@ -17,7 +17,7 @@ describe('BatchController', () => {
 
   test('/batches/:id([0-9]+)', async() => {
     await request(await app.callback())
-    .get('/batches')
+    .get('/batches/1')
     .set('Accept', 'application/json')
     .expect(200)
   })

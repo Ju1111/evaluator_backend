@@ -17,7 +17,7 @@ describe('EvaluationController', () => {
 
   test('/evaluations/:id([0-9]+)', async() => {
     await request(await app.callback())
-    .get('/evaluations')
+    .get('/evaluations/4')
     .set('Accept', 'application/json')
     .expect(200)
   })
@@ -25,8 +25,7 @@ describe('EvaluationController', () => {
   test('/evaluations', async() => {
 
     const target = {
-      colour: 'green',
-      date: '2018-04-02'
+      colour: 'green'
     }
 
     const response = await request(await app.callback())
@@ -34,6 +33,19 @@ describe('EvaluationController', () => {
     .set('Accept', 'application/json')
     .send(target)
     .expect(201)
+  })
+
+  test('/evaluations/:id', async() => {
+
+    const tar = {
+      colour: 'red'
+    }
+
+    const res = await request(await app.callback())
+    .put('/evaluations/3')
+    .set('Accept', 'application/json')
+    .send(tar)
+    .expect(200)
   })
 
 })
