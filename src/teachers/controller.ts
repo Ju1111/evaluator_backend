@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Get, Body, HttpCode } from 'routing-controllers'
+import { JsonController, Post, Body, HttpCode } from 'routing-controllers'
 import Teacher from './entity';
 
 @JsonController()
@@ -14,16 +14,11 @@ export default class TeacherController {
       await entity.setPassword(password)
       return entity.save()
     }
-
-  @Get('/teachers/:id([0-9]+)')
-  getTeacher(
-    @Param('id') id: number
-  ) {
-    return Teacher.findOneById(id)
-  }
-
-  @Get('/teachers')
-  allTeachers() {
-    return Teacher.find()
-  }
+  //
+  // @Get('/teachers/:id([0-9]+)')
+  // getTeacher(
+  //   @Param('id') id: number
+  // ) {
+  //   return Teacher.findOneById(id)
+  // }
 }

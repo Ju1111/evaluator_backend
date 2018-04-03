@@ -9,9 +9,9 @@ const password= 'mypassword'
 
 beforeAll(async () => {
   await setupDb()
-  const entity = Teacher.create({ email })
-  await entity.setPassword(password)
-  return entity.save()
+  // const entity = Teacher.create({ email })
+  // await entity.setPassword(password)
+  // return entity.save()
 })
 
 describe('LoginController', () => {
