@@ -1,6 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
 import { MinLength, IsString, IsDate } from 'class-validator';
 import Teacher from '../teachers/entity'
+import Student from '../students/entity'
 
 @Entity()
 export default class Evaluation extends BaseEntity {
@@ -28,4 +29,7 @@ export default class Evaluation extends BaseEntity {
 
   @ManyToOne(_ => Teacher, teacher => teacher.evaluation)
   teacher: Teacher
+
+  @ManyToOne(_ => Student, student => student.evaluation)
+  student: Student
 }
