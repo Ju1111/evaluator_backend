@@ -4,9 +4,14 @@ import { app } from '../app'
 import setupDb from '../db'
 import Teacher from '../teachers/entity'
 
+const email= 'me@me.com'
+const password= 'mypassword'
+
 beforeAll(async () => {
   await setupDb()
-  Teacher.create
+  const entity = Teacher.create({ email })
+  await entity.setPassword(password)
+  return entity.save()
 })
 
 describe('LoginController', () => {
@@ -14,9 +19,9 @@ describe('LoginController', () => {
     await request(await app.callback())
     .post('/logins')
     .send({
-      email: 'me@me.com',
-      password: 'mypassword'
+      email,
+      password
     })
-    .expect(302)
+    .expect(200)
   })
 })

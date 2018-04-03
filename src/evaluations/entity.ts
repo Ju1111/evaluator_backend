@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
-import { MinLength, IsString, IsDate } from 'class-validator';
+import { MinLength, IsString } from 'class-validator';
 import Teacher from '../teachers/entity'
 import Student from '../students/entity'
 
@@ -13,9 +13,9 @@ export default class Evaluation extends BaseEntity {
   @Column('text', { nullable: false })
   colour: string
 
-  @IsDate()
-  @Column('date', { default: Date() })
-  date: Date
+  @IsString()
+  @Column('text', { default: new Date() })
+  date: string
 
   @IsString()
   @MinLength(2)
