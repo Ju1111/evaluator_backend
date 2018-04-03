@@ -13,6 +13,7 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const bcrypt = require("bcrypt");
+const entity_1 = require("../evaluations/entity");
 let Teacher = class Teacher extends typeorm_1.BaseEntity {
     async setPassword(rawPassword) {
         const hash = await bcrypt.hash(rawPassword, 10);
@@ -38,6 +39,10 @@ __decorate([
     class_transformer_1.Exclude({ toPlainOnly: true }),
     __metadata("design:type", String)
 ], Teacher.prototype, "password", void 0);
+__decorate([
+    typeorm_1.OneToMany(_ => entity_1.default, evaluation => evaluation.teacher),
+    __metadata("design:type", Array)
+], Teacher.prototype, "evaluation", void 0);
 Teacher = __decorate([
     typeorm_1.Entity()
 ], Teacher);
