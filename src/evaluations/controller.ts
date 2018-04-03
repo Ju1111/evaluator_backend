@@ -11,7 +11,7 @@ export default class EvaluationController {
     return Evaluation.find()
   }
 
-  @Get('/evaluation/:id([0-9]+)')
+  @Get('/evaluations/:id([0-9]+)')
   @HttpCode(200)
   async getEvaluation(
     @Param('id') evaluationId: number

@@ -9,6 +9,7 @@ export default class Batch extends BaseEntity {
   id?: number
 
   @IsInt()
+  @Column('int', { nullable: false })
   batchNumber: number
 
   @IsString()

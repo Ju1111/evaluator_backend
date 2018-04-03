@@ -7,34 +7,45 @@ beforeAll(async () => {
   await setupDb()
 })
 
-describe('BatchController', () => {
-  test('/batches', async () => {
+describe('EvaluationController', () => {
+  test('/evaluations', async () => {
     await request(await app.callback())
-    .get('/batches')
+    .get('/evaluations')
     .set('Accept', 'application/json')
     .expect(200)
   })
 
-  test('/batches/:id([0-9]+)', async() => {
+  test('/evaluations/:id([0-9]+)', async() => {
     await request(await app.callback())
-    .get('/batches/1')
+    .get('/evaluations/4')
     .set('Accept', 'application/json')
     .expect(200)
   })
 
-  test('/batches', async() => {
+  test('/evaluations', async() => {
 
     const target = {
-      batchNumber: 1,
-      startDate: '2018-02-12',
-      endDate: '2018-04-20'
+      colour: 'green'
     }
 
     const response = await request(await app.callback())
-    .post('/batches')
+    .post('/evaluations')
     .set('Accept', 'application/json')
     .send(target)
     .expect(201)
+  })
+
+  test('/evaluations/:id', async() => {
+
+    const tar = {
+      colour: 'red'
+    }
+
+    const res = await request(await app.callback())
+    .put('/evaluations/3')
+    .set('Accept', 'application/json')
+    .send(tar)
+    .expect(200)
   })
 
 })

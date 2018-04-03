@@ -13,19 +13,11 @@ export default class Evaluation extends BaseEntity {
   @Column('text', { nullable: false })
   colour: string
 
-  @IsString()
   @Column('text', { default: new Date() })
   date: string
 
-  @IsString()
-  @MinLength(2)
-  @Column('text', { nullable: false })
-  firstName: string
-
-  @IsString()
-  @MinLength(2)
-  @Column('text', { nullable: false })
-  lastName: string
+  @Column('text', { nullable: true })
+  remark: string
 
   @ManyToOne(_ => Teacher, teacher => teacher.evaluation)
   teacher: Teacher
