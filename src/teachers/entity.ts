@@ -1,7 +1,8 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 import { Exclude } from 'class-transformer';
 import { MinLength, IsString, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcrypt'
+import Evaluation from '../evaluations/entity'
 
 @Entity()
 export default class Teacher extends BaseEntity {
@@ -27,4 +28,7 @@ export default class Teacher extends BaseEntity {
   checkPassword(rawPassword: string): Promise<boolean> {
     return bcrypt.compare(rawPassword, this.password)
   }
+
+  @OneToMany(_ => Evaluation, evaluation => evaluation.teacher)
+  evaluation: Evaluation[]
 }
