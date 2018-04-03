@@ -31,5 +31,5 @@ export default class Evaluation extends BaseEntity {
   teacher: Teacher
 
   @ManyToOne(_ => Student, student => student.evaluation)
-  student:Student
+  student: Student
 }

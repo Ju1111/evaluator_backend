@@ -1,7 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm'
 import { MinLength, IsString } from 'class-validator';
 import Evaluation from '../evaluations/entity';
-import Class from '../classes/entity'
+import Batch from '../batches/entity'
 
 @Entity()
 export default class Student extends BaseEntity {
@@ -26,6 +26,6 @@ export default class Student extends BaseEntity {
   @OneToMany(_ => Evaluation, evaluation => evaluation.student)
   evaluation: Evaluation[]
 
-  @ManyToOne(_=> Class, class => class.student)
-  class: Class
+  @ManyToOne(_=> Batch, batch => batch.student)
+  batch: Batch
 }
