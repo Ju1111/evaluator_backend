@@ -14,11 +14,4 @@ export default class TeacherController {
       await entity.setPassword(password)
       return entity.save()
     }
-  //
-  // @Get('/teachers/:id([0-9]+)')
-  // getTeacher(
-  //   @Param('id') id: number
-  // ) {
-  //   return Teacher.findOneById(id)
-  // }
 }
