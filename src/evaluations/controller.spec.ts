@@ -2,20 +2,21 @@ import 'jest'
 import * as request from 'supertest'
 import { app } from '../app'
 import setupDb from '../db'
+import Student from '../students/entity'
 
 beforeAll(async () => {
   await setupDb()
 })
 
 describe('EvaluationController', () => {
-  test('/evaluations', async () => {
+  test('/students/:id/evaluations', async () => {
     await request(await app.callback())
-    .get('/evaluations')
+    .get('students/2/evaluations')
     .set('Accept', 'application/json')
     .expect(200)
   })
 
-  test('/evaluations/:id([0-9]+)', async() => {
+  test('/evaluations/:id', async() => {
     await request(await app.callback())
     .get('/evaluations/4')
     .set('Accept', 'application/json')

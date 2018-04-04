@@ -1,4 +1,4 @@
-import { JsonController, Param, BadRequestError, NotFoundError, Get, Body, HttpCode, Post, Authorized } from 'routing-controllers'
+import { JsonController, Param, NotFoundError, Get, Body, HttpCode, Post, Authorized } from 'routing-controllers'
 import Batch from './entity'
 
 @JsonController()

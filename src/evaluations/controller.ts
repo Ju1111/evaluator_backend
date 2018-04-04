@@ -1,14 +1,22 @@
-import { JsonController, Param, BadRequestError, NotFoundError, Get, Body, HttpCode, Post, Authorized, Put } from 'routing-controllers'
+import { JsonController, Param, NotFoundError, Get, Body, HttpCode, Post, Authorized, Put, BadRequestError } from 'routing-controllers'
 import Evaluation from './entity'
+import Student from '../students/entity'
 
 @JsonController()
 export default class EvaluationController {
 
-  @Get('/evaluations')
+  //get all evaluations for a certain student
+
+  @Get('/students/:id([0-9]+)/evaluations')
   @HttpCode(200)
   async getEvaluations(
+    @Param('id') studentId: number
   ) {
-    return Evaluation.find()
+    const student = await Student.findOneById(studentId)
+    if(!student) throw new BadRequestError(`Student not found`)
+
+    const evaluation = await Evaluation.find()
+    return { evaluation }
   }
 
   @Get('/evaluations/:id([0-9]+)')
