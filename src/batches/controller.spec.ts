@@ -3,22 +3,31 @@ import * as request from 'supertest'
 import { app } from '../app'
 import setupDb from '../db'
 
+let jwt
+
+const email= 'me@me.com'
+const password= 'mypassword'
+
 beforeAll(async () => {
   await setupDb()
+  jwt = await request(await app.callback())
+    .post('/logins')
+    .send({ email, password })
+    .then(response => response.body.jwt)
 })
 
 describe('BatchController', () => {
   test('/batches', async () => {
     await request(await app.callback())
     .get('/batches')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .expect(200)
   })
 
   test('/batches/:id([0-9]+)', async() => {
     await request(await app.callback())
     .get('/batches/1')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .expect(200)
   })
 
@@ -32,7 +41,7 @@ describe('BatchController', () => {
 
     const response = await request(await app.callback())
     .post('/batches')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .send(target)
     .expect(201)
   })

@@ -4,6 +4,7 @@ import Student from './entity'
 @JsonController()
 export default class StudentController {
 
+  @Authorized()
   @Get('/students')
   @HttpCode(200)
   async getStudents(
@@ -11,6 +12,7 @@ export default class StudentController {
     return Student.find()
   }
 
+  @Authorized()
   @Get('/students/:id([0-9]+)')
   @HttpCode(200)
   async getStudent(
@@ -21,6 +23,7 @@ export default class StudentController {
     return student
   }
 
+  @Authorized()
   @Post('/students')
   @HttpCode(201)
   async createStudent(
@@ -29,6 +32,7 @@ export default class StudentController {
     return student.save();
   }
 
+  @Authorized()
   @Put('/students/:id')
   @HttpCode(201)
   async updateStudent(
@@ -41,6 +45,7 @@ export default class StudentController {
     return Student.merge(student, update)
   }
 
+  @Authorized()
   @Delete('/students/:id')
   @HttpCode(201)
   async deleteStudent(

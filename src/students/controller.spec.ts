@@ -3,22 +3,31 @@ import * as request from 'supertest'
 import { app } from '../app'
 import setupDb from '../db'
 
+let jwt
+
+const email= 'me@me.com'
+const password= 'mypassword'
+
 beforeAll(async () => {
   await setupDb()
+  jwt = await request(await app.callback())
+    .post('/logins')
+    .send({ email, password })
+    .then(response => response.body.jwt)
 })
 
 describe('StudentController', () => {
   test('/students', async () => {
     await request(await app.callback())
     .get('/students')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .expect(200)
   })
 
   test('/students/:id([0-9]+)', async() => {
     await request(await app.callback())
     .get('/students/1')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .expect(200)
   })
 
@@ -32,7 +41,7 @@ describe('StudentController', () => {
 
     const response = await request(await app.callback())
     .post('/students')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .send(target)
     .expect(201)
   })
@@ -45,7 +54,7 @@ describe('StudentController', () => {
 
     const res = await request(await app.callback())
     .put('/students/4')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .send(tar)
     .expect(201)
   })
@@ -53,7 +62,7 @@ describe('StudentController', () => {
   test('/students/id', async() => {
     await request(await app.callback())
     .delete('/students/2')
-    .set('Accept', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
     .expect(201)
   })
 

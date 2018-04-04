@@ -6,7 +6,7 @@ import Student from '../students/entity'
 export default class EvaluationController {
 
   //get all evaluations for a certain student
-
+  @Authorized()
   @Get('/students/:id([0-9]+)/evaluations')
   @HttpCode(200)
   async getEvaluations(
@@ -19,6 +19,7 @@ export default class EvaluationController {
     return { evaluation }
   }
 
+  @Authorized()
   @Get('/evaluations/:id([0-9]+)')
   @HttpCode(200)
   async getEvaluation(
@@ -29,6 +30,7 @@ export default class EvaluationController {
     return evaluation
   }
 
+  @Authorized()
   @Post('/evaluations')
   @HttpCode(201)
   async createEvaluation(
@@ -37,6 +39,7 @@ export default class EvaluationController {
     return evaluation.save();
   }
 
+  @Authorized()
   @Put('/evaluations/:id')
   @HttpCode(201)
   async updateEvaluation(
