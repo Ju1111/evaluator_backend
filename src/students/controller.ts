@@ -14,7 +14,7 @@ export default class StudentController {
   }
 
   @Authorized()
-  @Get('/students/:id([0-9]+)')
+  @Get('/batches/:id([0-9]+)/students/:id([0-9]+)')
   @HttpCode(200)
   async getStudent(
     @Param('id') studentId: number
@@ -32,6 +32,7 @@ export default class StudentController {
     @Body() student: Student
   ) {
     const batch = await Batch.findOneById(batchId)
+    if (!batch) throw new NotFoundError('Batch does not exist!')
 
     const s = await Student.create({
       ...student,

@@ -18,7 +18,6 @@ export default class LoginController {
   async authenticate(
     @Body() { email, password }: AuthenticatePayload
   ) {
-    console.log('here')
     const teacher = await Teacher.findOne({ where: { email } })
     if (!teacher) throw new BadRequestError('A user with this email does not exist')
 
