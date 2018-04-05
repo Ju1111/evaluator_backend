@@ -6,11 +6,21 @@ import Batch from '../batches/entity'
 export default class StudentController {
 
   @Authorized()
-  @Get('/students')
+  @Get('/batches/:id([0-9]+)/students')
   @HttpCode(200)
   async getStudents(
+    @Param('id') batchId: number,
+    @Body() student: Student
   ) {
-    return Student.find()
+    const batch = await Batch.findOneById(batchId)
+    if (!batch) throw new NotFoundError('Batch does not exist!')
+
+    const s = await Student.find({
+      ...student,
+      batch
+    })
+
+    return s
   }
 
   @Authorized()
@@ -43,7 +53,7 @@ export default class StudentController {
   }
 
   @Authorized()
-  @Put('/students/:id')
+  @Put('/batches/:id([0-9]+)/students/:id([0-9]+)')
   @HttpCode(201)
   async updateStudent(
     @Param('id') studentId:number,
@@ -56,7 +66,7 @@ export default class StudentController {
   }
 
   @Authorized()
-  @Delete('/students/:id')
+  @Delete('/batches/:id([0-9]+)/students/:id([0-9]+)')
   @HttpCode(201)
   async deleteStudent(
     @Param('id') studentId: number

@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
-import { IsString } from 'class-validator';
+import { IsString, IsString } from 'class-validator';
 import Student from '../students/entity'
 
 @Entity()
