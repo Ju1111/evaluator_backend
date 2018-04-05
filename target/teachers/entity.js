@@ -40,7 +40,7 @@ __decorate([
     __metadata("design:type", String)
 ], Teacher.prototype, "password", void 0);
 __decorate([
-    typeorm_1.OneToMany(_ => entity_1.default, evaluation => evaluation.teacher),
+    typeorm_1.OneToMany(_ => entity_1.default, evaluation => evaluation.teacher, { eager: true }),
     __metadata("design:type", Array)
 ], Teacher.prototype, "evaluation", void 0);
 Teacher = __decorate([

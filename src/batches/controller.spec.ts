@@ -34,7 +34,7 @@ describe('BatchController', () => {
   test('/batches', async() => {
 
     const target = {
-      batchNumber: 1,
+      batchNumber: 5,
       startDate: '2018-02-12',
       endDate: '2018-04-20'
     }

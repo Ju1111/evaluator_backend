@@ -31,7 +31,7 @@ describe('StudentController', () => {
     .expect(200)
   })
 
-  test('/students', async() => {
+  test('/batches/:id/students', async() => {
 
     const target = {
       firstName: 'Julia',
@@ -40,7 +40,7 @@ describe('StudentController', () => {
     }
 
     const response = await request(await app.callback())
-    .post('/students')
+    .post('batches/1/students')
     .set('Authorization', `Bearer ${jwt}`)
     .send(target)
     .expect(201)
@@ -61,7 +61,7 @@ describe('StudentController', () => {
 
   test('/students/id', async() => {
     await request(await app.callback())
-    .delete('/students/2')
+    .delete('/students/8')
     .set('Authorization', `Bearer ${jwt}`)
     .expect(201)
   })
