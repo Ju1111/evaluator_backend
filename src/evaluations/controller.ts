@@ -7,7 +7,7 @@ export default class EvaluationController {
 
   //get all evaluations for a certain student
   @Authorized()
-  @Get('/students/:id([0-9]+)/evaluations')
+  @Get('/batches/:id([0-9]+)/students/:id([0-9]+)/evaluations')
   @HttpCode(200)
   async getEvaluations(
     @Param('id') studentId: number
@@ -20,7 +20,7 @@ export default class EvaluationController {
   }
 
   @Authorized()
-  @Get('/evaluations/:id([0-9]+)')
+  @Get('/batches/:id([0-9]+)/students/:id([0-9]+)/evaluations/:id([0-9]+)')
   @HttpCode(200)
   async getEvaluation(
     @Param('id') evaluationId: number
@@ -31,16 +31,25 @@ export default class EvaluationController {
   }
 
   @Authorized()
-  @Post('/evaluations')
+  @Post('/batches/:id([0-9]+)/students/:id([0-9]+)/evaluations')
   @HttpCode(201)
   async createEvaluation(
+    @Param('id') studentId: number,
     @Body() evaluation: Evaluation
   ) {
-    return evaluation.save();
+    const student = await Student.findOneById(studentId)
+    if(!student) throw new NotFoundError('Student does not exist')
+
+    const e = await Evaluation.create({
+      ...evaluation,
+      student
+    })
+
+    return e.save();
   }
 
   @Authorized()
-  @Put('/evaluations/:id')
+  @Put('/batches/:id([0-9]+)/students/:id([0-9]+)/evaluations/:id')
   @HttpCode(201)
   async updateEvaluation(
     @Param('id') evaluationId:number,

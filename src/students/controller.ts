@@ -23,16 +23,16 @@ export default class StudentController {
     return s
   }
 
-  @Authorized()
-  @Get('/batches/:id([0-9]+)/students/:id([0-9]+)')
-  @HttpCode(200)
-  async getStudent(
-    @Param('id') studentId: number
-  ) {
-    const student = await Student.findOneById(studentId)
-    if (!student) throw new NotFoundError('Student does not exist!')
-    return student
-  }
+  // @Authorized()
+  // @Get('/batches/:id([0-9]+)/students/:id([0-9]+)')
+  // @HttpCode(200)
+  // async getStudent(
+  //   @Param('id') studentId: number
+  // ) {
+  //   const student = await Student.findOneById(studentId)
+  //   if (!student) throw new NotFoundError('Student does not exist!')
+  //   return student
+  // }
 
   @Authorized()
   @Post('/batches/:id([0-9]+)/students')
