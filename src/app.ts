@@ -4,6 +4,7 @@ import LoginController from './logins/controller'
 import BatchController from './batches/controller'
 import EvaluationController from './evaluations/controller'
 import StudentController from './students/controller'
+import TeacherController from './teachers/controller'
 import { Action, BadRequestError } from 'routing-controllers'
 import { verify } from './jwt'
 import Teacher from './teachers/entity'
@@ -14,7 +15,8 @@ export const app = createKoaServer({
     LoginController,
     BatchController,
     EvaluationController,
-    StudentController
+    StudentController,
+    TeacherController
   ],
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization
